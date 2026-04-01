@@ -1001,6 +1001,13 @@ footer a:hover { color: var(--accent); }
         <div class="checkout-msg" id="team-msg"></div>
       </div>
     </div>
+
+    <div style="text-align:center; margin-top: 24px;">
+      <p style="color: var(--text-muted); font-size: 14px;">Already a customer?</p>
+      <input type="email" id="portal-email" placeholder="your@email.com" class="plan-email" style="max-width:280px; margin: 8px auto; display:block;">
+      <button class="btn btn-secondary btn-small" onclick="openPortal()" style="margin-top:8px;">Manage subscription</button>
+      <div id="portal-msg" class="checkout-msg"></div>
+    </div>
   </div>
 </section>
 
@@ -1216,6 +1223,30 @@ function escapeHtml(str) {
   const div = document.createElement('div');
   div.textContent = str;
   return div.innerHTML;
+}
+
+async function openPortal() {
+  const email = document.getElementById('portal-email').value.trim();
+  const msgEl = document.getElementById('portal-msg');
+  if (!email || !email.includes('@')) {
+    msgEl.textContent = 'Please enter a valid email.';
+    msgEl.classList.add('error');
+    return;
+  }
+  msgEl.textContent = 'Loading...';
+  try {
+    const res = await fetch(`${API_BASE}/billing/portal`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed');
+    window.location.href = data.url;
+  } catch (err) {
+    msgEl.textContent = err.message;
+    msgEl.classList.add('error');
+  }
 }
 
 // ── Checkout ──
