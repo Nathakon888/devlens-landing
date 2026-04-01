@@ -1290,6 +1290,58 @@ async function checkout(plan, emailId) {
     msgEl.classList.add('error');
   }
 }
+// Show success/cancel message based on URL path
+(function() {
+  const path = window.location.pathname;
+  if (path === '/success') {
+    document.addEventListener('DOMContentLoaded', () => {
+      const banner = document.createElement('div');
+      banner.style.cssText = `
+        position: fixed;
+        top: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #00dfa8;
+        color: #06060b;
+        padding: 16px 32px;
+        border-radius: 12px;
+        font-family: 'DM Sans', sans-serif;
+        font-weight: 600;
+        font-size: 16px;
+        z-index: 9999;
+        box-shadow: 0 8px 32px rgba(0,223,168,0.3);
+        text-align: center;
+      `;
+      banner.innerHTML = '🎉 Payment successful! Check your email for your API key.';
+      document.body.appendChild(banner);
+      setTimeout(() => banner.remove(), 8000);
+    });
+  }
+  if (path === '/cancel') {
+    document.addEventListener('DOMContentLoaded', () => {
+      const banner = document.createElement('div');
+      banner.style.cssText = `
+        position: fixed;
+        top: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #ff4d4d;
+        color: #fff;
+        padding: 16px 32px;
+        border-radius: 12px;
+        font-family: 'DM Sans', sans-serif;
+        font-weight: 600;
+        font-size: 16px;
+        z-index: 9999;
+        box-shadow: 0 8px 32px rgba(255,77,77,0.3);
+        text-align: center;
+      `;
+      banner.innerHTML = '❌ Payment cancelled. No charge was made.';
+      document.body.appendChild(banner);
+      setTimeout(() => banner.remove(), 8000);
+    });
+  }
+})();
 </script>
 </body>
 </html>
