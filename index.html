@@ -791,8 +791,18 @@ footer a:hover { color: var(--accent); }
 <nav id="navbar">
   <div class="nav-inner">
     <a href="#" class="nav-logo">
-      <div class="logo-icon">D</div>
-      DevLens
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 80" height="40">
+        <defs>
+          <style>
+            .dl-cap { font-family: 'Syne', sans-serif; font-weight: 800; }
+            .dl-mono { font-family: 'Fira Code', monospace; font-weight: 500; }
+          </style>
+        </defs>
+        <rect x="0" y="8" width="44" height="44" rx="10" fill="#F1F5F9"/>
+        <line x1="30" y1="16" x2="14" y2="44" stroke="#0F172A" stroke-width="4" stroke-linecap="round"/>
+        <text x="56" y="36" class="dl-cap" font-size="26" fill="#E8E8F0" letter-spacing="-1">dev<tspan fill="#38BDF8">lens</tspan></text>
+        <text x="57" y="50" class="dl-mono" font-size="9" fill="#38BDF8" opacity="0.6" letter-spacing="0.5">GET /v1/enrich/:username</text>
+      </svg>
     </a>
     <div class="nav-links">
       <a href="#features">Features</a>
